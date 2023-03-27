@@ -1,0 +1,58 @@
+<div class="container row-align">
+    <div class="profile-pictures column-align">
+        <div class="target row-align">
+            <div class="profile-frame column-align center">
+                <div *ngIf="!lobby" class="profile-pic" [style.background-image]="'url(/assets/default_profile.png)'">
+                </div>
+                <div *ngIf="lobby" class="profile-pic" [style.background-image]="'url(/assets/lobby.jpeg)'"></div>
+            </div>
+        </div>
+        <div class="self row-align">
+            <div class="profile-frame column-align center">
+                <div class="profile-pic" [style.background-image]="'url(/assets/default_profile.png)'"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-container column-align" style="flex-grow: 1; padding: 15px;">
+        <div class="info-container">
+            <div class="info">
+                <div class="row-align" style="align-items: flex-end; padding-bottom: 10px;">
+                    <span style="font-size: 20pt; padding-right: 15px;" *ngIf="lobby">Main Lobby</span>
+                    <span style="font-size: 20pt; padding-right: 15px;" *ngIf="!lobby">{{client?.nickname}}</span>
+                </div>
+                <div>
+                    <span styLe="font-size: 10pt; color: #575757">Custom messages</span>
+                </div>
+            </div>
+        </div>
+        <div #chatContainer class="chat-container">
+
+            <div *ngFor="let m of messages; let i = index">
+                <div *ngIf="!m.type && (i === 0 || messages[i-1].sender.sid !== messages[i].sender.sid)"
+                    style="color:#575757; font-size: 9pt;">
+                    <span style="font-weight: 600">{{m.sender.nickname}}</span> says:
+                </div>
+                <div style="padding-left: 15px;" [ngStyle]="{'font-style': m.type === 'nudge' ? 'italic' : 'normal'}">
+                    {{m.message}}
+                </div>
+            </div>
+        </div>
+        <div class="input-container">
+            <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" (keypress)="keydownSubmit($event)">
+                <mat-form-field appearance="outline" class="inputbox">
+                    <textarea matInput style="height: 100%; resize: none;" formControlName="message"></textarea>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="row-align emoji-container">
+            <div class="button row-align center">
+                <img style="height: 100%" src="/assets/smile.png">
+                <i class="fa-solid fa-caret-down" style="padding-left: 5px;"></i>
+            </div>
+            <div class="button" (click)="nudge()" *ngIf="!lobby">
+                <img style="height: 100%" src="/assets/nudge.png">
+            </div>
+        </div>
+    </div>
+</div>

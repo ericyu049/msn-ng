@@ -1,0 +1,74 @@
+.wrapper {
+    width: 100%;
+    height: calc(100% - 44px);
+    background-image: url("/assets/bg.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+
+    .main-container {
+        box-shadow: -1px 0px 5px #969696;
+        position: absolute;
+        top: 5%;
+        left: 50%;
+        height: 700px;
+        width: 400px;
+        min-width: 350px;
+        border-radius: 5px 5px 0px 0px;
+        z-index: 1;
+        resize: both;
+        overflow: auto;
+    }
+
+    .background {
+        height: 100%;
+        width: 100%;
+    }
+    .chat-window {
+        overflow: auto;
+        position: absolute;
+        border-radius: 5px 5px 0px 0px;
+        top: 100px;
+        left: 100px;
+        resize: both;
+        border: solid 1px #afafaf;
+        height: 500px;
+        width: 700px;
+        z-index: 2;
+    }
+
+    .desktop-icon {
+        position: absolute;
+        z-index: 0;
+    }
+}
+
+.shakeit {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}

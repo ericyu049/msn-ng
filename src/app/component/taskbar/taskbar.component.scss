@@ -1,0 +1,19 @@
+.taskbar {
+    height: 44px;
+    padding: 0 10px;
+    background: rgba(0, 23, 34, 0.767);
+    justify-content: space-between;
+    align-items: center;
+    color:white;
+    .app-list {
+        padding-left: 15px;
+        .app {
+            height: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-left: solid 1px #85858575;
+            border-right: solid 1px #85858575;
+            background-color: rgba(124, 124, 124, 0.384);
+        }
+    }
+}

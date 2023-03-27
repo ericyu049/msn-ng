@@ -1,0 +1,68 @@
+<div class="container column-align">
+    <div class="top-container">
+        <div class="row-align profile">
+            <div class="profile-frame column-align center" >
+                <div class="profile-pic" ></div>
+            </div>
+            <div class="info">
+                <div class="row-align" style="align-items: flex-end; padding-bottom: 10px;">
+                    <span style="font-size: 18pt; padding-right: 15px;">{{nickname}}</span>
+                </div>
+                <div>
+                    <input matInput style="font-size: 9pt;" placeholder="Enter a custom message here. "/>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="search-container row-align center">
+            <mat-form-field appearance="outline" class="search-bar">
+                <input matInput placeholder="Search contacts or the web...">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <button mat-button (click)="getClients()">
+                <mat-icon style="color: #535353;">refresh</mat-icon>
+            </button>
+            <button mat-button>
+                <mat-icon style="color: #535353;">view_comfy</mat-icon>
+            </button>
+        </div>
+
+    </div>
+    <div #contactsContainer class="contacts-container">
+        <div class="group column-align">
+            <div class="row-align" style="align-items: center; cursor: pointer">
+                <span class="group-name row-align">
+                    General
+                </span>
+            </div>
+            <div class="list">
+                <div class="contact row-align noselect" (click)="enterLobby()">
+                    Main Lobby
+                </div>
+            </div>
+        </div>
+        <div class="group column-align">
+            <div class="row-align" style="align-items: center; cursor: pointer">
+                <i *ngIf="!onlineExpanded" class="fa-solid fa-caret-right" style="padding-right: 5px" (click)="onlineExpanded = !onlineExpanded"></i>
+                <i *ngIf="onlineExpanded" class="fa-solid fa-caret-down" style="padding-right: 5px" (click)="onlineExpanded = !onlineExpanded"></i>
+                <span class="group-name row-align" (click)="onlineExpanded = !onlineExpanded">
+                    Online
+                    <span class="size">({{clients?.length}})</span>
+                </span>
+            </div>
+            <div class="list" [class.invisible]="!onlineExpanded">
+                <div class="contact row-align noselect" *ngFor="let c of clients" (click)="openChat(c)">
+                    <div class="icon" [style.background-color]="'#93ff82'"></div>
+                    {{c.nickname}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="footer-container column-align center">
+        <div class="banner column-align center">
+            <div [style.background-image]="'url(' + banner + ')'" class="image"></div>
+        </div>
+    </div>
+
+</div>

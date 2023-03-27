@@ -1,0 +1,111 @@
+.container {
+    height: 100%;
+    background: linear-gradient(180deg, #3eb5ec, white 20% 60%, #e9f6fb, #c8e7f1);
+    .top-container {
+        background-size: contain;
+        padding: 15px 15px 0 15px;
+        .profile {
+            padding-bottom: 10px;
+            text-shadow: 1px -1px 4px rgb(255, 255, 255);
+            width: 100%;
+            .profile-frame {
+                border: solid 1px #8d8d8d;
+                width: 65px;
+                height: 65px;
+                border-radius: 5px;
+                background: linear-gradient(0deg, rgb(21, 253, 21), transparent);
+                .profile-pic {
+                    width: 55px;
+                    height: 55px;
+                    border: solid 1px #a5a5a5;
+                    background-size: cover !important;
+                    border-radius: 5px;
+                    background-image: url("/assets/default_profile.png");
+                }
+            }
+            .info {
+                padding: 10px 15px;
+                flex-grow: 1;
+            }
+        }
+        .search-container {
+            width: 100%;
+            // padding-top: 2px;
+            .search-bar {
+                flex-grow: 1;
+                font-size: 8pt;
+                padding-right: 5px;
+            }
+            button {
+                padding: 0px !important;
+                width: 35px;
+                min-width: 0px;
+                margin-top: -15px;
+            }
+        }
+    }
+    .contacts-container {
+        flex-grow: 1;
+        padding: 0 10px 10px 10px;
+        overflow-y: scroll;
+        button {
+            padding: 0px !important;
+            min-width: 0px;
+            width: 25px;
+        }
+        .group {
+            padding-bottom: 15px;
+            align-items: flex-start;
+            .contact {
+                align-items: center;
+                padding: 2px;
+                cursor: pointer;
+                .icon {
+                    height: 10px;
+                    width: 10px;
+                    margin: 2px 4px 2px 2px;
+                    border-radius: 3px;
+                }
+            }
+            .contact:hover {
+                background-color: #e9f3ff50;
+            }
+            .group-name {
+                font-size: 14pt;
+                color: #355b88;
+                align-items: center;
+                .size {
+                    font-size: 10pt;
+                    padding-left: 3px;
+                    color: rgba(53, 90, 136, 0.527);
+                }
+            }
+            .list {
+                padding-left: 10px;
+                padding-top: 5px;
+            }
+        }
+
+        .invisible {
+            display: none;
+        }
+    }
+    .footer-container {
+        height: 120px;
+        min-height: 120px;
+        .banner {
+            border: solid 1px black;
+            height: 65px;
+            width: 80%;
+            max-width: 300px;
+            .image {
+                height: 100%;
+                width: 100%;
+                background-position: center;
+                background-size: 100%;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<div class="column-align connection-container">
+    <div class="inner-container column-align center">
+        <div class="image-container"></div>
+        <h2 style="color: rgb(0, 67, 155)">Sign In</h2>
+        <h5>Enter your nickname and connect to the Socket.IO server</h5>
+        <form [formGroup]="connectForm" (ngSubmit)="connect()">
+            <mat-form-field appearance="outline" style="font-size: 8pt;">
+            <mat-label >Nickname</mat-label>
+            <input matInput formControlName="nickname">
+        </mat-form-field>
+        </form>
+        
+        <button mat-raised-button color="primary" (click)="connect()">Connect</button>
+    </div>
+</div>

@@ -46,10 +46,13 @@
             </form>
         </div>
         <div class="row-align emoji-container">
-            <div class="button row-align center">
+            <div class="button row-align center" [matMenuTriggerFor]="emojiMart">
                 <img style="height: 100%" src="/assets/smile.png">
                 <i class="fa-solid fa-caret-down" style="padding-left: 5px;"></i>
             </div>
+            <mat-menu #emojiMart [class]="'emojiMenu'" yPosition="above" xPosition="after">
+                <emoji-mart (emojiSelect)="addEmoji($event)" [showPreview]="false" (click)="$event.stopPropagation()"></emoji-mart>
+            </mat-menu>
             <div class="button" (click)="nudge()" *ngIf="!lobby">
                 <img style="height: 100%" src="/assets/nudge.png">
             </div>

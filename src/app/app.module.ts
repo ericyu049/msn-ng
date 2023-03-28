@@ -14,6 +14,7 @@ import { ChatroomStateService } from './service/chatroom-state.service';
 import { TopNavComponent } from './component/topnav/topnav.component';
 import { TaskBarComponent } from './component/taskbar/taskbar.component';
 import { DesktopIconComponent } from './component/desktop-icon/desktop-icon.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
 	declarations: [
@@ -31,7 +32,8 @@ import { DesktopIconComponent } from './component/desktop-icon/desktop-icon.comp
 		BrowserAnimationsModule,
 		ReactiveFormsModule,
 		FormsModule,
-		MaterialModule
+		MaterialModule,
+		PickerModule
 	],
 	providers: [
 		ConnectionStateService,

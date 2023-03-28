@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatMenuTrigger } from "@angular/material/menu";
 import { Socket } from "socket.io-client";
 import { ChatroomStateService } from "src/app/service/chatroom-state.service";
 import { ConnectionStateService } from "src/app/service/connection-state.service";
@@ -15,9 +16,13 @@ export class ChatComponent {
     socket!: Socket;
     lobby: boolean = false;
     messages: any[] = [];
+    showEmoji: boolean = false;
+    myClass: string[] = ['emojiMenu'];
+
     get isValid() { return this.messageForm.valid; }
 
     @ViewChild('chatContainer') chatContainer!: ElementRef;
+    @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
     constructor(private fb: FormBuilder, private chatroomState: ChatroomStateService, private connectionState: ConnectionStateService) { }
 
     ngOnInit() {
@@ -68,5 +73,13 @@ export class ChatComponent {
     nudge() {
         this.socket.emit('nudge', this.client);
         this.messages.push({type: 'nudge', sender: this.client, message: 'You nudged ' + this.client.nickname});
+    }
+    openEmoji() {
+        this.showEmoji = !this.showEmoji;
+    }
+    addEmoji(event: any) {
+        const message = (this.messageForm.value.message ? this.messageForm.value.message : '') + event.emoji.native;
+        this.messageForm.controls['message'].setValue(message);
+        this.trigger.closeMenu();
     }
 }

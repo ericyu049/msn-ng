@@ -50,3 +50,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     align-items: center;
     justify-content: center;
 }
+
+.mat-menu-panel {
+  max-width: fit-content !important;
+}
+.mat-menu-content:not(:empty) {
+  padding: 0 !important;
+}

@@ -21,8 +21,7 @@ export class ConnectComponet {
         });
     }
     connect() {
-        // const socket = io('http://localhost:8000');
-        const socket = io('/server');
+        const socket = io('https://chatserver.ai-amadeus.com');
         socket.on('connect', () => {
         	console.log('connected to socket.io server');
             socket.emit('setNickname', this.connectForm.value.nickname);

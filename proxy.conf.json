@@ -1,0 +1,11 @@
+{
+    "/server": {
+        "target": "http://192.168.1.57:8084",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "info",
+        "pathRewrite": {
+            "^/server": ""
+        }
+    }
+}

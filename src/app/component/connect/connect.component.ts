@@ -22,7 +22,7 @@ export class ConnectComponet {
     }
     connect() {
         // const socket = io('http://localhost:8000');
-        const socket = io('http://192.168.1.57:8084');
+        const socket = io('/server');
         socket.on('connect', () => {
         	console.log('connected to socket.io server');
             socket.emit('setNickname', this.connectForm.value.nickname);

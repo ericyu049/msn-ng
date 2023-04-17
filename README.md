@@ -1,5 +1,4 @@
-# NgClient
-
+# MSN-NG
 
 This project is a frontend client for the recreation of the classic Windows live messenger. This project was created using Angular 13 and Socket.IO library to communicate with the [server](https://github.com/ericyu049/msn-server)
 

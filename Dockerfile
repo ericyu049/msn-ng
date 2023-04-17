@@ -15,4 +15,4 @@ RUN npm install -g @angular/cli
 COPY . /app
 
 # start app
-CMD ng serve --prod --host 0.0.0.0 --disable-host-check true
+CMD ng serve --configuration production --host 0.0.0.0 --disable-host-check true

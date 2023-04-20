@@ -2,9 +2,8 @@
     <div class="profile-pictures column-align">
         <div class="target row-align">
             <div class="profile-frame column-align center">
-                <div *ngIf="!lobby" class="profile-pic" [style.background-image]="'url(/assets/default_profile.png)'">
+                <div class="profile-pic" [style.background-image]="'url(/assets/default_profile.png)'">
                 </div>
-                <div *ngIf="lobby" class="profile-pic" [style.background-image]="'url(/assets/lobby.jpeg)'"></div>
             </div>
         </div>
         <div class="self row-align">
@@ -18,8 +17,7 @@
         <div class="info-container">
             <div class="info">
                 <div class="row-align" style="align-items: flex-end; padding-bottom: 10px;">
-                    <span style="font-size: 20pt; padding-right: 15px;" *ngIf="lobby">Main Lobby</span>
-                    <span style="font-size: 20pt; padding-right: 15px;" *ngIf="!lobby">{{client?.nickname}}</span>
+                    <span style="font-size: 20pt; padding-right: 15px;">{{client?.nickname}}</span>
                 </div>
                 <div>
                     <span styLe="font-size: 10pt; color: #575757">Custom messages</span>
@@ -53,7 +51,7 @@
             <mat-menu #emojiMart [class]="'emojiMenu'" yPosition="above" xPosition="after">
                 <emoji-mart (emojiSelect)="addEmoji($event)" [showPreview]="false" (click)="$event.stopPropagation()"></emoji-mart>
             </mat-menu>
-            <div class="button" (click)="nudge()" *ngIf="!lobby">
+            <div class="button" (click)="nudge()" *ngIf="false">
                 <img style="height: 100%" src="/assets/nudge.png">
             </div>
         </div>

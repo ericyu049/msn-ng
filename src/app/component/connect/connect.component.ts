@@ -25,6 +25,7 @@ export class ConnectComponet {
         socket.on('connect', () => {
         	console.log('connected to socket.io server');
             socket.emit('setNickname', this.connectForm.value.nickname);
+            socket.emit('enter_lobby');
             this.connectionState.setConnectionState({connected: true, socket: socket})
         });
        

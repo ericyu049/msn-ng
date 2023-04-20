@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
+import { firstValueFrom } from "rxjs";
 import { Socket } from "socket.io-client";
 import { ChatroomStateService } from "src/app/service/chatroom-state.service";
 import { ConnectionStateService } from "src/app/service/connection-state.service";
@@ -20,6 +21,7 @@ export class MainComponent {
         'assets/banner/angular.jpeg',
     ];
     clients: any;
+    chatWindows: any[] = [];
     constructor(private connectionState: ConnectionStateService, private chatroomState: ChatroomStateService) {
 
     }
@@ -45,11 +47,25 @@ export class MainComponent {
     getClients() {
         this.socket.emit('clients');
     }
-    openChat(client: any) {
-        this.chatroomState.setChatroom(client);
+    async openChat(client: any) {
+        console.log(client);
+        const windows: any = await firstValueFrom(this.chatroomState.getChatWindows());
+        console.log(windows, 'find window: ', windows.find((window: any) => window.target.sid === client.sid));
+        if (!windows.find((window: any) => window.target.sid === client.sid)) {
+            this.chatWindows.push({ target: client });
+            this.chatroomState.setChatWindows(this.chatWindows);
+        }
+
     }
     enterLobby() {
-        this.chatroomState.setChatroom({ sid: 'lobby', nickname: 'Main Lobby' })
-        this.socket.emit('enter_lobby');
+        // this.chatWindows.push({ roomId: 'lobby', target: { sid: 'lobby', nickname: 'Main Lobby' } });
+        // this.chatroomState.setChatWindows(this.chatWindows);
+    }
+    checkWindows() {
+        this.chatroomState.getChatWindows().subscribe({
+            next: (data) => {
+                console.log('current windows: ', data);
+            }
+        })
     }
 }

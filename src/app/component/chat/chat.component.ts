@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatMenuTrigger } from "@angular/material/menu";
 import { Socket } from "socket.io-client";
@@ -11,10 +11,11 @@ import { ConnectionStateService } from "src/app/service/connection-state.service
     styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent {
+    @Input() window !: any;
+
     client !: any;
     messageForm !: FormGroup;
     socket!: Socket;
-    lobby: boolean = false;
     messages: any[] = [];
     showEmoji: boolean = false;
     myClass: string[] = ['emojiMenu'];
@@ -26,14 +27,11 @@ export class ChatComponent {
     constructor(private fb: FormBuilder, private chatroomState: ChatroomStateService, private connectionState: ConnectionStateService) { }
 
     ngOnInit() {
-        this.chatroomState.getChatroom().subscribe({
-            next: (client) => {
-                this.messages = [];
-                this.client = client;
-                this.lobby = client?.sid === 'lobby';
-                this.getMessageHistory(client?.sid);
-            }
-        })
+        console.log('window open');
+        this.client = this.window.target;
+
+        this.getMessageHistory(this.client?.sid);
+        
         this.messageForm = this.fb.group({
             message: [null],
         });
@@ -42,12 +40,14 @@ export class ChatComponent {
                 if (state) this.socket = state?.socket;
             }
         })
-        this.socket.on('message', (data) => {
-            this.messages.push(data);
+        this.socket.on('message', (data:any) => {
+            console.log('In chat component: Got message: ',data, 'Current Window: ', this.window);
+            // if (data.self_copy)
+                this.messages.push(data);
             this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight + 200;
         });
         this.socket.on('got_nudged', (data) => {
-            this.messages.push({type: 'nudge', sender: this.client, message: this.client.nickname + ' nudged you.' });
+            this.messages.push({ type: 'nudge', sender: this.client, message: this.client.nickname + ' nudged you.' });
         })
         this.getMessageHistory(this.client?.sid);
     }
@@ -58,8 +58,7 @@ export class ChatComponent {
         })
     }
     sendMessage() {
-        console.log(this.messageForm.value.message);
-        this.socket.emit('send_message', this.messageForm.value.message, this.client.sid);
+        this.socket.emit('send_message', this.messageForm.value.message, this.client.sid)
     }
     keydownSubmit(event: KeyboardEvent) {
         if (event.key === 'Enter' && this.messageForm.value.message && this.messageForm.value.message.trim() !== '') {
@@ -72,7 +71,7 @@ export class ChatComponent {
     }
     nudge() {
         this.socket.emit('nudge', this.client);
-        this.messages.push({type: 'nudge', sender: this.client, message: 'You nudged ' + this.client.nickname});
+        this.messages.push({ type: 'nudge', sender: this.client, message: 'You nudged ' + this.client.nickname });
     }
     openEmoji() {
         this.showEmoji = !this.showEmoji;

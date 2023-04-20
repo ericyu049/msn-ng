@@ -22,7 +22,7 @@
             <button mat-button (click)="getClients()">
                 <mat-icon style="color: #535353;">refresh</mat-icon>
             </button>
-            <button mat-button>
+            <button mat-button (click)="checkWindows()">
                 <mat-icon style="color: #535353;">view_comfy</mat-icon>
             </button>
         </div>
@@ -36,9 +36,9 @@
                 </span>
             </div>
             <div class="list">
-                <div class="contact row-align noselect" (click)="enterLobby()">
+                <!-- <div class="contact row-align noselect" (click)="enterLobby()">
                     Main Lobby
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="group column-align">

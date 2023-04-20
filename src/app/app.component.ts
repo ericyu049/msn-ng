@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
 	hideChat: boolean = true;
 	connected: boolean = false;
 	shakeit: boolean = false;
+	chatWindows: any[] = [];
 	constructor(private connectionState: ConnectionStateService, private chatroom: ChatroomStateService) {
 	}
 	ngOnInit() {
@@ -23,21 +24,34 @@ export class AppComponent implements OnInit {
 				if (state?.connected) {
 					this.socket = state.socket;
 					this.connected = true;
-					this.socket?.on('got_nudged', (data) => {
-						this.chatroom.setChatroom(data.sender);
-						this.shakeit = true;
-						setTimeout(() => {
-							this.shakeit = false;
-						}, 5000);
+					// this.socket?.on('got_nudged', (data) => {
+					// 	this.chatroom.setChatroom(data.sender);
+					// 	this.shakeit = true;
+					// 	setTimeout(() => {
+					// 		this.shakeit = false;
+					// 	}, 5000);
+					// })
+
+
+					// receives a message 
+					this.socket?.on('message', (data) => {
+						console.log(this.socket)
+						console.log('received message: ', data);
+						const room_exist = this.chatWindows.find(window => window.target.sid === data.sender.sid)
+
+						if (!room_exist && !data.self_copy) {
+							// open the window
+							this.chatWindows.push({target: data.sender});
+							this.chatroom.setChatWindows(this.chatWindows);
+						}
 					})
 				}
 			}
 		})
-		this.chatroom.getChatroom().subscribe({
+		this.chatroom.getChatWindows().subscribe({
 			next: (state) => {
-				this.hideChat = (state === undefined)
+				this.chatWindows = state
 			}
-		});
-
+		})
 	}
 }

@@ -1,9 +1,9 @@
 <div class="row-align wrapper">
-	<div class="chat-window column-align" *ngIf="connected && !hideChat" cdkDrag cdkDragBoundary=".wrapper"
+	<div class="chat-window column-align" *ngFor="let window of chatWindows" cdkDrag cdkDragBoundary=".wrapper"
 		[ngClass]="{'shakeit': shakeit === true}">
 		<top-nav cdkDragHandle id="chat"></top-nav>
 		<div style="flex-grow: 1">
-			<chat-comp></chat-comp>
+			<chat-comp [window]="window"></chat-comp>
 		</div>
 	</div>
 	<div class="main-container column-align" cdkDrag cdkDragBoundary=".wrapper">

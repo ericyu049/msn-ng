@@ -1,7 +1,7 @@
 <div class="row-align wrapper">
 	<div class="chat-window column-align" *ngFor="let window of chatWindows" cdkDrag cdkDragBoundary=".wrapper"
 		[ngClass]="{'shakeit': shakeit === true}">
-		<top-nav cdkDragHandle id="chat"></top-nav>
+		<top-nav cdkDragHandle id="chat" [id]="window.target.sid"></top-nav>
 		<div style="flex-grow: 1">
 			<chat-comp [window]="window"></chat-comp>
 		</div>

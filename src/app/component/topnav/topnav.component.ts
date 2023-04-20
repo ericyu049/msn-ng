@@ -1,5 +1,7 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output } from "@angular/core";
+import { firstValueFrom } from "rxjs";
 import { ChatroomStateService } from "src/app/service/chatroom-state.service";
+import { EventEmitter } from "stream";
 
 @Component({
     selector: 'top-nav',
@@ -8,10 +10,19 @@ import { ChatroomStateService } from "src/app/service/chatroom-state.service";
 })
 export class TopNavComponent {
     @Input() id!: string;
-    constructor(private chatState: ChatroomStateService) {
+    constructor(private chatstate: ChatroomStateService) {
 
     }
-    closeWindow() {
-        if (this.id === 'chat') this.chatState.setChatroom(undefined);
+    async closeWindow() {
+        // if (this.id === 'chat') this.chatState.setChatroom(undefined);
+        const windows = await firstValueFrom(this.chatstate.getChatWindows());
+        const element = windows.find((window: any) => window.target.sid === this.id)
+
+        const index = windows.indexOf(element);
+        if (index > -1) {
+            windows.splice(index, 1);
+            this.chatstate.setChatWindows(windows);
+        }
+
     }
 }

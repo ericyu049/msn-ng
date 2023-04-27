@@ -27,7 +27,6 @@ export class ChatroomStateService {
         return this.chatWindows$;
     }
     setChatWindows(state: any) {
-        console.log(state);
         return this.chatWindowsSubject.next(state);
     }
 }

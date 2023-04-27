@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { firstValueFrom } from "rxjs";
 import { Socket } from "socket.io-client";
 import { ChatroomStateService } from "src/app/service/chatroom-state.service";
@@ -22,14 +23,19 @@ export class MainComponent {
     ];
     clients: any;
     chatWindows: any[] = [];
-    constructor(private connectionState: ConnectionStateService, private chatroomState: ChatroomStateService) {
+    customMessageForm !: FormGroup;
+
+    constructor(private fb: FormBuilder, private connectionState: ConnectionStateService, private chatroomState: ChatroomStateService) {
 
     }
     ngOnInit() {
         setInterval(() => {
             this.banner = this.banners[this.counter];
             this.counter = this.counter < this.banners.length - 1 ? this.counter + 1 : 0;
-        }, 8000)
+        }, 8000);
+        this.customMessageForm = this.fb.group({
+            customMessage: [null, []],
+        });
         this.connectionState.getConnectionState().subscribe({
             next: (state) => {
                 if (state?.connected) {
@@ -48,9 +54,7 @@ export class MainComponent {
         this.socket.emit('clients');
     }
     async openChat(client: any) {
-        console.log(client);
         const windows: any = await firstValueFrom(this.chatroomState.getChatWindows());
-        console.log(windows, 'find window: ', windows.find((window: any) => window.target.sid === client.sid));
         if (!windows.find((window: any) => window.target.sid === client.sid)) {
             this.chatWindows.push({ target: client });
             this.chatroomState.setChatWindows(this.chatWindows);
@@ -62,10 +66,9 @@ export class MainComponent {
         // this.chatroomState.setChatWindows(this.chatWindows);
     }
     checkWindows() {
-        this.chatroomState.getChatWindows().subscribe({
-            next: (data) => {
-                console.log('current windows: ', data);
-            }
-        })
+        this.chatroomState.getChatWindows().subscribe()
+    }
+    setCustomMessage() {
+        this.socket.emit('setCustomMessage', this.customMessageForm.value.customMessage)
     }
 }

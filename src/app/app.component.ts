@@ -35,8 +35,6 @@ export class AppComponent implements OnInit {
 
 					// receives a message 
 					this.socket?.on('message', (data) => {
-						console.log(this.socket)
-						console.log('received message: ', data);
 						const room_exist = this.chatWindows.find(window => window.target.sid === data.sender.sid)
 
 						if (!room_exist && !data.self_copy) {

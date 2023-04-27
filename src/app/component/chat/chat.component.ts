@@ -27,7 +27,6 @@ export class ChatComponent {
     constructor(private fb: FormBuilder, private chatroomState: ChatroomStateService, private connectionState: ConnectionStateService) { }
 
     ngOnInit() {
-        console.log('window open');
         this.client = this.window.target;
 
         this.getMessageHistory(this.client?.sid);
@@ -41,9 +40,7 @@ export class ChatComponent {
             }
         })
         this.socket.on('message', (data:any) => {
-            console.log('In chat component: Got message: ',data, 'Current Window: ', this.window);
-            // if (data.self_copy)
-                this.messages.push(data);
+            this.messages.push(data);
             this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight + 200;
         });
         this.socket.on('got_nudged', (data) => {

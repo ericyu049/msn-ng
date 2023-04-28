@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
 							this.chatWindows.push({ target: data.sender });
 							this.chatroom.setChatWindows(this.chatWindows);
 						}
-						const chatWindow = this.windows.find(window => window.nativeElement.id)
+						const chatWindow = this.windows.find(window => window.nativeElement.id === data.sender.sid)
 						setTimeout(() => {
 							this.renderer.addClass(chatWindow?.nativeElement, 'shakeit');
 						}, 5000);

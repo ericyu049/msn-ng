@@ -28,7 +28,7 @@ export class ChatComponent {
 
     ngOnInit() {
         this.client = this.window.target;
-
+        console.log('client: ', this.client);
         this.getMessageHistory(this.client?.sid);
         
         this.messageForm = this.fb.group({

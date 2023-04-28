@@ -47,6 +47,7 @@ export class MainComponent {
             }
         })
         this.socket.on('client_results', (clients: any) => {
+            console.log('hello@')
             this.clients = Object.entries(clients).map(([sid, nickname]) => ({ sid, nickname })).filter((client: any) => client.sid !== this.socket.id);
         });
     }
@@ -69,6 +70,7 @@ export class MainComponent {
         this.chatroomState.getChatWindows().subscribe()
     }
     setCustomMessage() {
+        console.log('setting custom message', this.customMessageForm.value);
         this.socket.emit('setCustomMessage', this.customMessageForm.value.customMessage)
     }
 }

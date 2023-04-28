@@ -51,7 +51,7 @@
             <mat-menu #emojiMart [class]="'emojiMenu'" yPosition="above" xPosition="after">
                 <emoji-mart (emojiSelect)="addEmoji($event)" [showPreview]="false" (click)="$event.stopPropagation()"></emoji-mart>
             </mat-menu>
-            <div class="button" (click)="nudge()" *ngIf="false">
+            <div class="button" (click)="nudge()">
                 <img style="height: 100%" src="/assets/nudge.png">
             </div>
         </div>

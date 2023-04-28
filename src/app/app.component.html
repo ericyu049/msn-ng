@@ -1,6 +1,5 @@
 <div class="row-align wrapper">
-	<div class="chat-window column-align" *ngFor="let window of chatWindows" cdkDrag cdkDragBoundary=".wrapper"
-		[ngClass]="{'shakeit': shakeit === true}">
+	<div class="chat-window column-align" *ngFor="let window of chatWindows" #windows [attr.id]="window.target.sid" cdkDrag cdkDragBoundary=".wrapper">
 		<top-nav cdkDragHandle id="chat" [id]="window.target.sid"></top-nav>
 		<div style="flex-grow: 1">
 			<chat-comp [window]="window"></chat-comp>
@@ -15,7 +14,7 @@
 
 	</div>
 	<div class="desktop-icon">
-		<desktop-icon appName="Chrome"></desktop-icon>
+		<desktop-icon appName="Chrome" (click)="checkWindows()"></desktop-icon>
 		<desktop-icon appName="Recycling Bin"></desktop-icon>
 		<desktop-icon appName="MSN"></desktop-icon>
 	</div>

@@ -10,9 +10,7 @@
                 </div>
                 <div>
                     <form [formGroup]="customMessageForm" (ngSubmit)="setCustomMessage()">
-                        <mat-form-field>
-                            <input matInput style="font-size: 9pt;" placeholder="Enter a custom message here. " />
-                        </mat-form-field>
+                        <input formControlName="customMessage" matInput style="font-size: 9pt;" placeholder="Enter a custom message here. " />
                     </form>
                 </div>
             </div>
@@ -59,8 +57,8 @@
             <div class="list" [class.invisible]="!onlineExpanded">
                 <div class="contact row-align noselect" *ngFor="let c of clients" (click)="openChat(c)">
                     <div class="icon" [style.background-color]="'#93ff82'"></div>
-                    {{c.nickname[0]}} 
-                    <span>{{c.nickname[1]}}</span>
+                    {{c.nickname[0]}}
+                    <span style="padding-left: 5px; font-size: 9pt; font-style: italic">{{c.nickname[1]}}</span>
                 </div>
             </div>
         </div>

@@ -47,7 +47,6 @@ export class MainComponent {
             }
         })
         this.socket.on('client_results', (clients: any) => {
-            console.log('hello@')
             this.clients = Object.entries(clients).map(([sid, nickname]) => ({ sid, nickname })).filter((client: any) => client.sid !== this.socket.id);
         });
     }
@@ -55,6 +54,7 @@ export class MainComponent {
         this.socket.emit('clients');
     }
     async openChat(client: any) {
+        console.log('client::', client);
         const windows: any = await firstValueFrom(this.chatroomState.getChatWindows());
         if (!windows.find((window: any) => window.target.sid === client.sid)) {
             this.chatWindows.push({ target: client });

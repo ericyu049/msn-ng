@@ -28,9 +28,9 @@ export class ChatComponent {
 
     ngOnInit() {
         this.client = this.window.target;
-        console.log('client: ', this.client);
+        console.log('open chat client: ', this.client);
         this.getMessageHistory(this.client?.sid);
-        
+
         this.messageForm = this.fb.group({
             message: [null],
         });
@@ -39,9 +39,12 @@ export class ChatComponent {
                 if (state) this.socket = state?.socket;
             }
         })
-        this.socket.on('message', (data:any) => {
-            this.messages.push(data);
-            this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight + 200;
+        this.socket.on('message', (data: any) => {
+            console.log('message: ', data)
+            if (this.client.sid === data.sender.sid || data.self_copy) {
+                this.messages.push(data);
+                this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight + 200;
+            }
         });
         this.socket.on('got_nudged', (data) => {
             this.messages.push({ type: 'nudge', sender: this.client, message: this.client.nickname + ' nudged you.' });

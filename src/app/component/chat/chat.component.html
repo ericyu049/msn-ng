@@ -17,10 +17,10 @@
         <div class="info-container">
             <div class="info">
                 <div class="row-align" style="align-items: flex-end; padding-bottom: 10px;">
-                    <span style="font-size: 20pt; padding-right: 15px;">{{client?.nickname}}</span>
+                    <span style="font-size: 20pt; padding-right: 15px;">{{client?.nickname[0]}}</span>
                 </div>
                 <div>
-                    <span styLe="font-size: 10pt; color: #575757">Custom messages</span>
+                    <span styLe="font-size: 10pt; color: #575757">{{client?.nickname[1]}}</span>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
             <div *ngFor="let m of messages; let i = index">
                 <div *ngIf="!m.type && (i === 0 || messages[i-1].sender.sid !== messages[i].sender.sid)"
                     style="color:#575757; font-size: 9pt;">
-                    <span style="font-weight: 600">{{m.sender.nickname}}</span> says:
+                    <span style="font-weight: 600">{{m.sender.nickname[0]}}</span> says:
                 </div>
                 <div style="padding-left: 15px;" [ngStyle]="{'font-style': m.type === 'nudge' ? 'italic' : 'normal'}">
                     {{m.message}}

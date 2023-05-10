@@ -41,7 +41,7 @@ export class ChatComponent {
         })
         this.socket.on('message', (data: any) => {
             console.log('message: ', data)
-            if (this.client.sid === data.sender.sid || data.self_copy) {
+            if (this.client.sid === data.sender.sid || (data.self_copy && this.client.sid === data.sender.sid) ) {
                 this.messages.push(data);
                 this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight + 200;
             }
